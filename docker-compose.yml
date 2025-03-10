@@ -1,0 +1,88 @@
+services:
+  frontend: 
+    build: ./frontend
+    container_name: frontend
+    ports: 
+     - "3000:3000"
+    stdin_open: true
+    tty: true
+    # depends_on:
+    #   - backend
+    networks:
+      - nest-network
+
+  backend: 
+    build: ./backend
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    # environment:
+    #   - DATABASE=mongodb://mongo-db:27017/ecommerce
+    #   - PORT=8000
+    depends_on:
+      - database
+    networks:
+      - nest-network
+
+  database: 
+    image: "mongo"
+    restart: always
+    container_name: mongo-db
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: jobportalAdm
+    #   MONGO_INITDB_ROOT_PASSWORD: JobPPass#$1238
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodata:/data/db 
+    networks:
+      - nest-network
+
+networks:
+  nest-network:
+    driver:  bridge
+volumes:
+  mongodata:
+    driver: local  # Persist MongoDB data locally
+
+
+   
+# services:
+#   mongodb:
+#     image: mongo:latest  
+#     ports:
+#       - "27017:27017"  
+#     networks:
+#       - nest_network
+#     volumes:
+#       - mongo-data:/data/db  
+
+#   backend:
+#     build: ./backend
+#     ports:
+#       - "8000:8000" 
+#     networks:
+#       - nest_network
+#     environment:
+#       MONGO_URI: mongodb://mongo:27017/ecommerce  
+#     depends_on:
+#       - mongodb
+
+#   # frontend:
+#   #   build: ./mern/frontend
+#   #   ports:
+#   #     - "5173:5173"  
+#   #   networks:
+#   #     - mern_network
+#   #   environment:
+#   #     REACT_APP_API_URL: http://backend:5050 
+
+
+# networks:
+#   mern_network:
+#     driver: bridge 
+
+# volumes:
+#   mongo-data:
+#     driver: local  # Persist MongoDB data locally
