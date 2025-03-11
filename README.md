@@ -51,7 +51,7 @@ Desta forma, a consistência vai ser mantida.
 - Pedidos por período (diário, semanal, mensal)
 - Quantidade de categorias
 - Quantidade de categorias
-- Venda diaria por dia com datas com grafico
+- Venda diaria com datas e grafico
 
 
 
