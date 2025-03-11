@@ -65,8 +65,9 @@ const Dashboard = () => {
                 />
                 <DashboardCard
                   value={
-                    medianValuePerOrder &&
-                    medianValuePerOrder[0]?.average?.toFixed(2)
+                    medianValuePerOrder && medianValuePerOrder[0]?.average
+                      ? medianValuePerOrder[0]?.average?.toFixed(2)
+                      : 0
                   }
                   icon={
                     <LocalGroceryStoreIcon
@@ -80,7 +81,7 @@ const Dashboard = () => {
                   money=""
                 />
                 <DashboardCard
-                  value={orders && orders[0]?.numberOrders}
+                  value={orders && orders[0] ? orders[0]?.numberOrders : 0}
                   icon={
                     <ListAltIcon
                       sx={{
@@ -93,7 +94,9 @@ const Dashboard = () => {
                   money=""
                 />
                 <DashboardCard
-                  value={orders && orders[0]?.totalSales}
+                  value={
+                    orders && orders !== undefined ? orders[0]?.totalSales : 0
+                  }
                   icon={
                     <AttachMoneyIcon
                       sx={{

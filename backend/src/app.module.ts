@@ -11,7 +11,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot('mongodb://localhost/nest-ecommerce'),
+    MongooseModule.forRoot('mongodb://mongo-db:27017/ecommerce'),
     ProductModule,
     CategoryModule,
     OrderModule,

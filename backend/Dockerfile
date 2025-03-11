@@ -1,12 +1,22 @@
 FROM node:alpine
 
-WORKDIR /usr/src/app
+# Create app directory
+WORKDIR /app
 
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
-RUN npm ci
 
-RUN npm run build
+# Install app dependencies
+RUN npm install
+
+# Bundle app source
 COPY . .
 
+# Creates a "dist" folder 
+RUN npm run build
 
-CMD [ "npm ", "run", "start:prod" ]
+# Expose the port on which the app will run
+EXPOSE 8000
+
+# Start the server using the production build
+CMD ["npm", "run", "start:prod"]
