@@ -41,6 +41,7 @@ Desta forma, a consistência vai ser mantida.
 - Validações de formulario com Formik e Yup
 - Datagrid para listagem de Produtos, categorias e Ordem.
 - Quando editar um produto, poderia acrescentar mais categorias
+- Upload de imagem
 
 ## Dashboard de KPIs via Mongo DB Aggregation:
 
@@ -204,7 +205,17 @@ Desta forma, a consistência vai ser mantida.
 ```
 
 
+## Environment Variables
 
+To run this project, you will need to add the following environment variables to your .env file
+
+`S3_ACCESS_KEY`
+`S3_SECRET_ACCESS_KEY`
+`S3_REGION`
+`S3_BUCKET_NAME`
+`EMAIL_HOST`
+`EMAIL_USERNAME`
+`EMAIL_PASSWORD`
 
 
 
@@ -224,4 +235,25 @@ To build and run images in a container.
     
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+![Home Page](./images-print/home.png)
+
+
+![Home Page](./images-print/dashboard.png)
+
+
+![Home Page](./images-print/orders.png)
+
+
+
+![Home Page](./images-print/product.png)
+
+
+
+![Home Page](./images-print/update-product.png)
+
+
+![Home Page](./images-print/product-endpoint-print.png)
+
+
+![Home Page](./images-print/category-endpoint-print.png)
