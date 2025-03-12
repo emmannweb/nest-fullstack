@@ -235,6 +235,15 @@ Download nest-fullstack Github folder (Should have docker install)
 ```
 To build and run images in a container.
 
+Restore Mongo DB Database from the ROOT folder
+
+```bash
+  docker cp ./db.archive mongo-db:/db.archive
+```
+```bash
+  docker exec -it mongo-db mongorestore --uri mongodb://localhost:27017 --gzip --archive=db.archive
+```
+
 
 
     
