@@ -1,7 +1,7 @@
 
 # Mini Projeto de E-commerce
 
-Esse projeto permite de simular orders com um botao no frontend do aplicativo depois adicionar um ou mais produto no carinho de simulacao (o carinho esta usando localStorage para salvar IDs dos produtos; depois a  criacao da ordem, o  localStorage e limpado);
+Esse projeto permite de simular orders com um botão no frontend do aplicativo depois adicionar um ou mais produto no carinho de simulação (o carinho esta usando localStorage para salvar IDs dos produtos; depois a  criação da ordem, o  localStorage é limpado), e conferir a a ordem criada no Dashboard;
 
 
 
@@ -22,36 +22,35 @@ Esse projeto permite de simular orders com um botao no frontend do aplicativo de
 ## Features (Backend)
 
 - DTOs implementados
-- Quando um produto e criado ele e adicionado numa categoria, e essa categoria recebe o ID desse produto.
-- na atualizacao de produto, quando acrescentar uma ou mais categorias num produto,
+- Quando um produto é criado ele é  adicionado numa categoria, e essa categoria recebe o ID desse produto.
+- na atualização de produto, quando acrescentar uma ou mais categorias num produto,
      o ID desse produto vai se cadastrado nas categorias que esse produto pertence.
-- Ao deletar um produto, o ID desse produto e delatado em todas as categorias que ele pertence.
+- Ao deletar um produto, o ID desse produto é  delatado em todas as categorias que ele pertence.
 -  Ao deletar uma categoria, o ID dessa categoria vai ser deletado em todos os produtos que ele pertence. 
 Desta forma, a consistência vai ser mantida.
 
 -  Tratamento de erros e status com um middleware, estrutura de JSON
--    Quando um ordem e criado um evento escutando para cada criacao de ordem para o envio de email com Nodemailer usando o servico de email implementado.
--  O upload de image foi implementado no backend com S3 e gera  um URL salvo com a criacao de novo produto.
+-    Quando um ordem é  criado um evento escutando para cada criação de ordem para o envio de email com Nodemailer usando o serviço de email implementado.
+-  O upload de image foi implementado no backend com S3 e gera  um URL salvo com a criação de novo produto.
 
 
 
 ## Features (Frontend)
 
-- Material UI
-- Validações de formulario com Formik e Yup
+- Material UI.
+- Validações de formulário com Formik e Yup.
 - Datagrid para listagem de Produtos, categorias e Ordem.
-- Quando editar um produto, poderia acrescentar mais categorias
+- Quando editar um produto, poderia acrescentar uma ou mais categorias.
 - Upload de imagem
 
 ## Dashboard de KPIs via Mongo DB Aggregation:
 
-- Quantidade total de pedidos
-- Valor médio por pedido
-- Receita total
-- Pedidos por período (diário, semanal, mensal)
-- Quantidade de categorias
-- Quantidade de categorias
-- Venda diaria com datas e grafico
+- Quantidade total de pedidos.
+- Valor médio por pedido.
+- Receita total.
+- Pedidos por período (diário, semanal, mensal).
+- Quantidade de categorias.
+- Venda diário com datas e gráfico.
 
 
 
