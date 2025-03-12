@@ -42,6 +42,7 @@ Desta forma, a consistência vai ser mantida.
 - Datagrid para listagem de Produtos, categorias e Ordem.
 - Quando editar um produto, poderia acrescentar uma ou mais categorias.
 - Upload de imagem
+- Quando o carrinho é vazio o botão de simulação de pedido é desabilitado
 
 ## Dashboard de KPIs via Mongo DB Aggregation:
 
@@ -151,6 +152,11 @@ Desta forma, a consistência vai ser mantida.
 | `id`      | `string` | **Required & valid**. Id of category to delete |
 
 
+#### Count categories
+
+```http
+  GET /count/result
+```
 
 #### Get all orders
 
