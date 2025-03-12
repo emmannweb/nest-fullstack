@@ -53,6 +53,10 @@ const Home = () => {
             <div className="container">
               <h3>Loading...</h3>
             </div>
+          ) : data?.length === 0 ? (
+            <>
+              <h3>Nenhum produto cadastrado!</h3>
+            </>
           ) : (
             <Box sx={{ flexGrow: 1, pt: 2 }}>
               <Grid

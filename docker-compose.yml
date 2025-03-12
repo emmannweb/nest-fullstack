@@ -43,7 +43,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./mongodata:/data/db 
+     # - ./mongodata:/data/db 
+      - ./mongodata:/mongodata
     networks:
       - nest-network
 
