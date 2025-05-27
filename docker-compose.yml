@@ -6,8 +6,6 @@ services:
      - "3000:3000"
     stdin_open: true
     tty: true
-    # depends_on:
-    #   - backend
     networks:
       - nest-network
 
@@ -17,17 +15,7 @@ services:
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE=mongodb://mongo-db:27017/ecommerce
-      - PORT=8000
-      - S3_ACCESS_KEY=
-      - S3_SECRET_ACCESS_KEY=
-      - S3_REGION=us-east-2
-      - S3_BUCKET_NAME=
-      - EMAIL_HOST=
-      - EMAIL_USERNAME=
-      - EMAIL_PASSWORD=
-
+    env_file: .env
     depends_on:
       - database
     networks:
@@ -37,13 +25,12 @@ services:
     image: "mongo"
     restart: always
     container_name: mongo-db
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: test
-    #   MONGO_INITDB_ROOT_PASSWORD: test@123
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - "27017:27017"
     volumes:
-     # - ./mongodata:/data/db 
       - ./mongodata:/mongodata
     networks:
       - nest-network

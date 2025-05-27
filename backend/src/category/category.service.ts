@@ -13,9 +13,13 @@ export class CategoryService {
     @InjectModel(Product.name) private productModel: Model<Product>,
   ) {}
 
-  create(createCategoryDto: CreateCategoryDto) {
-    const category = new this.categoryModel(createCategoryDto);
-    return category.save();
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    try {
+      const category = await new this.categoryModel(createCategoryDto);
+      return category.save();
+    } catch (error) {
+      throw new Error('An error occured while creating category');
+    }
   }
 
   findAll() {
@@ -41,7 +45,7 @@ export class CategoryService {
       );
       return category;
     } catch (error) {
-      console.log(error);
+      throw new Error('Operation failed!');
     }
   }
 

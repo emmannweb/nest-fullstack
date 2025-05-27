@@ -6,10 +6,13 @@ import NotFound from "./front/NotFound";
 import Order from "./admin/pages/Order";
 import Category from "./admin/pages/Category";
 import Home from "./front/Home";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <>
+      <ToastContainer position="bottom-right" />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

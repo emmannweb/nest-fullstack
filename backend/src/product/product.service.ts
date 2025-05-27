@@ -1,4 +1,3 @@
-import { CategoryService } from './../category/category.service';
 import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -12,11 +11,10 @@ export class ProductService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
     @InjectModel(Category.name) private categoryModel: Model<Category>,
-    private categoryService: CategoryService,
     private readonly logger: Logger,
   ) {}
   async create(createProductDto: CreateProductDto) {
-    // this.logger.log(createProductDto);
+    this.logger.log(createProductDto);
     const product = await new this.productModel(createProductDto);
     await this.categoryModel.updateMany(
       { _id: product.categoryIds },
@@ -69,7 +67,7 @@ export class ProductService {
       );
       return product;
     } catch (error) {
-      console.log(error);
+      throw new Error('Error occured!');
     }
   }
 
@@ -118,7 +116,7 @@ export class ProductService {
         { $addToSet: { productIds: product3._id } },
       );
     } catch (error) {
-      console.log(error);
+      throw new Error('Error on trying to populate the database');
     }
   }
 }

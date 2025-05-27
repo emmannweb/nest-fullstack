@@ -5,6 +5,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateProductDto {
   @IsString()
@@ -19,10 +20,9 @@ export class CreateProductDto {
 
   @IsNumber()
   @IsNotEmpty()
+  @Transform(({ value }) => Number(value))
   price: number;
 
-  @IsString()
-  @IsNotEmpty()
   imageUrl: string;
 
   @IsMongoId({ each: true })

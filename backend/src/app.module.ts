@@ -11,7 +11,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot('mongodb://mongo-db:27017/ecommerce'),
+    MongooseModule.forRoot(
+      `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@mongo-db:27017/${process.env.DB_NAME}?retryWrites=true&writeConcern=majority&authSource=admin`,
+    ),
     ProductModule,
     CategoryModule,
     OrderModule,

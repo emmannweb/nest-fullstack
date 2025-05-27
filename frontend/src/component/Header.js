@@ -13,10 +13,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import StorefrontIcon from "@mui/icons-material/Storefront";
+import { useSelector } from "react-redux";
 
 const pages = ["Home"];
 
 const Header = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -144,10 +147,7 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Box component="span" sx={{ mr: 3 }}>
-              Cart{" "}
-              {localStorage.getItem("cartItems")
-                ? JSON.parse(localStorage.getItem("cartItems")).length
-                : 0}
+              Cart {cartItems.length}
             </Box>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

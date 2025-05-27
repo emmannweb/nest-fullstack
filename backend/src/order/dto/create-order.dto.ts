@@ -1,12 +1,10 @@
-import { IsMongoId, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsMongoId } from 'class-validator';
 
 export class CreateOrderDto {
-  @IsString()
-  @IsNotEmpty()
   date: Date;
 
-  @IsNumber()
-  @IsNotEmpty()
+  @Transform(({ value }) => Number(value))
   total: number;
 
   @IsMongoId({ each: true })

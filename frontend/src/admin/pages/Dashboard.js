@@ -22,6 +22,7 @@ const Dashboard = () => {
   const { data: categoryCount } = useFetchData("/category/count/result");
 
   const { products, medianValuePerOrder, orders, daylyOrders } = data;
+
   const daylyOrdersStat =
     daylyOrders && daylyOrders?.length > 0 ? daylyOrders : [];
 
@@ -51,7 +52,11 @@ const Dashboard = () => {
                 sx={{ pb: 4 }}
               >
                 <DashboardCard
-                  value={products && products[0]?.nbProducts}
+                  value={
+                    products && products[0]?.nbProducts
+                      ? products[0]?.nbProducts
+                      : 0
+                  }
                   icon={
                     <Inventory2Icon
                       sx={{
@@ -94,9 +99,7 @@ const Dashboard = () => {
                   money=""
                 />
                 <DashboardCard
-                  value={
-                    orders && orders !== undefined ? orders[0]?.totalSales : 0
-                  }
+                  value={orders && orders[0] ? orders[0]?.totalSales : 0}
                   icon={
                     <AttachMoneyIcon
                       sx={{
@@ -162,16 +165,22 @@ const Dashboard = () => {
 
               <Box sx={{ pt: 3 }}>
                 <h2>Venda por dia:</h2>
-                <Chart
-                  chartType="LineChart"
-                  data={[
-                    ["Data", "Venda em R$"],
-                    ...daylyOrdersStat.map((val) => [val._id, val.sales]),
-                  ]}
-                  width="100%"
-                  height="400px"
-                  options={options}
-                />
+                {daylyOrdersStat && daylyOrdersStat?.length === 0 ? (
+                  <>
+                    <h2>No Order yet to show graph!</h2>
+                  </>
+                ) : (
+                  <Chart
+                    chartType="LineChart"
+                    data={[
+                      ["Data", "Venda em R$"],
+                      ...daylyOrdersStat.map((val) => [val._id, val.sales]),
+                    ]}
+                    width="100%"
+                    height="400px"
+                    options={options}
+                  />
+                )}
               </Box>
             </>
           )}

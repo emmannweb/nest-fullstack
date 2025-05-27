@@ -2,6 +2,9 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { Button, CardMedia } from "@mui/material";
+import { addToCart } from "../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -14,22 +17,19 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-//simulation to add to cart
-const cartItems = [];
-const addToCart = (id) => {
-  cartItems.push(id);
-  let uniqueIds = [...new Set(cartItems)];
-  localStorage.setItem("cartItems", JSON.stringify(uniqueIds));
-};
+const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
 
-const ProductCard = ({
-  name,
-  description,
-  imageUrl,
-  price,
-  id,
-  categoryIds,
-}) => {
+  const addToCardAction = (product) => {
+    const payload = {
+      product: product._id,
+      name: product.name,
+      price: product.price,
+      image: product?.imageUrl,
+    };
+    dispatch(addToCart(payload));
+    toast("Added to shopping cart");
+  };
   return (
     <>
       <Item>
@@ -37,20 +37,22 @@ const ProductCard = ({
           <CardMedia
             component="img"
             height="194"
-            image={imageUrl}
-            alt="Paella dish"
+            image={product?.imageUrl}
+            alt={product?.name}
           />
-          {/* <image src={`${imageUrl}`} alt={name} /> */}
-          <h3>{name}</h3>
-          <h3>{description}</h3>
+          <h3>{product?.name}</h3>
+          <h3>{product?.description}</h3>
           <h4 style={{ color: "#1976d2" }}>
-            {categoryIds?.map((val) => val.name + "  ")}
+            {product?.categoryIds?.map((val) => val.name + "  ")}
           </h4>
           <Box sx={{ fontWeight: "bold" }}>
-            <h3>R${price}</h3>
+            <h3>R${product?.price}</h3>
           </Box>
           <Box>
-            <Button onClick={() => addToCart(id)}> Adicionar </Button>
+            <Button onClick={() => addToCardAction(product)}>
+              {" "}
+              Adicionar{" "}
+            </Button>
           </Box>
         </Box>
       </Item>

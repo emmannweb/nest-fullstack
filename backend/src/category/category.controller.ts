@@ -6,8 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
   HttpException,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
@@ -20,12 +18,11 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
 
-  @Get()
+  @Get('/')
   findAll() {
     return this.categoryService.findAll();
   }

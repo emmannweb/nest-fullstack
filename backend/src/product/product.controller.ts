@@ -49,6 +49,7 @@ export class ProductController {
       file,
       isPublic: true,
     });
+
     return this.productService.create({
       ...createProductDto,
       categoryIds: createProductDto.categoryIds,
@@ -56,7 +57,7 @@ export class ProductController {
     });
   }
 
-  @Get('')
+  @Get('/')
   findAll() {
     return this.productService.findAll();
   }

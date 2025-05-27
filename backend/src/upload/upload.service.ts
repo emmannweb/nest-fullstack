@@ -7,12 +7,13 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class UploadService {
   private client: S3Client;
-  private bucketName = process.env.S3_BUCKET_NAME;
+  private bucketName: string;
 
   constructor(private readonly configService: ConfigService) {
     const s3_region = this.configService.get('S3_REGION');
     const accessKeyId = this.configService.get('S3_ACCESS_KEY');
     const secretAccessKey = this.configService.get('S3_SECRET_ACCESS_KEY');
+    this.bucketName = this.configService.get('S3_BUCKET_NAME')!;
 
     if (!s3_region) {
       throw new Error('S3_REGION not found in environment variables');

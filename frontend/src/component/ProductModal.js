@@ -78,7 +78,7 @@ export default function ProductModal({ open, setOpen, refetch }) {
       formData.append("imageUrl", values.imageUrl);
       formData.append("name", values.name);
       formData.append("description", values.description);
-      formData.append("price", parseFloat(values.price));
+      formData.append("price", values.price);
       formData.append("categoryIds", values.categoryIds);
 
       // eslint-disable-next-line

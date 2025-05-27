@@ -7,22 +7,30 @@ import ProductCard from "../component/ProductCard";
 import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const { data, loading, error } = useFetchData("/product");
 
-  //get array ids of product from localstorage
-  const idsArrayProducts = localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [];
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const Ids = cartItems.reduce((acc, curr) => {
+    if (Array.isArray(curr) && curr.length === 0) {
+      return acc;
+    } else {
+      return [...acc, curr.product];
+    }
+  }, []);
 
   const simulateOrder = async () => {
     try {
       const order = await axios.post("/order", {
-        productIds: idsArrayProducts,
+        productIds: Ids,
       });
       console.log(order);
       localStorage.removeItem("cartItems");
+      toast("Order created");
     } catch (error) {
       console.log(error);
     }
@@ -39,11 +47,11 @@ const Home = () => {
           bgcolor: "#fafbfb",
         }}
       >
-        <Container>
+        <Container sx={{ pb: 5 }}>
           <Box sx={{ display: "flex", justifyContent: "right", pt: 3 }}>
             <Button
               variant="outlined"
-              disabled={idsArrayProducts.length === 0}
+              disabled={cartItems.length === 0}
               onClick={() => simulateOrder()}
             >
               Simulate order
@@ -66,14 +74,7 @@ const Home = () => {
               >
                 {data?.map((product, id) => (
                   <Grid key={id} size={{ xs: 2, sm: 4, md: 4 }}>
-                    <ProductCard
-                      name={product.name}
-                      description={product.description}
-                      imageUrl={product.imageUrl}
-                      price={product.price}
-                      categoryIds={product.categoryIds}
-                      id={product._id}
-                    />
+                    <ProductCard product={product} />
                   </Grid>
                 ))}
               </Grid>

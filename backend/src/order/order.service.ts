@@ -1,8 +1,13 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product } from 'src/product/entities/product.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -37,7 +42,6 @@ export class OrderService {
 
     const result = await order.save();
     this.eventEmitter.emit('order.created', result);
-
     return result;
   }
 
@@ -46,6 +50,8 @@ export class OrderService {
   }
 
   findOne(id: string) {
+    const isValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isValid) throw new HttpException('Order not found', 404);
     return this.orderModel.findById(id);
   }
 
