@@ -99,7 +99,9 @@ const Dashboard = () => {
                   money=""
                 />
                 <DashboardCard
-                  value={orders && orders[0] ? orders[0]?.totalSales : 0}
+                  value={
+                    orders && orders[0] ? orders[0]?.totalSales?.toFixed(2) : 0
+                  }
                   icon={
                     <AttachMoneyIcon
                       sx={{

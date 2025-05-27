@@ -7,10 +7,12 @@ import ProductCard from "../component/ProductCard";
 import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { clearCart } from "../redux/slices/cartSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { data, loading, error } = useFetchData("/product");
 
   const { cartItems } = useSelector((state) => state.cart);
@@ -29,7 +31,7 @@ const Home = () => {
         productIds: Ids,
       });
       console.log(order);
-      localStorage.removeItem("cartItems");
+      dispatch(clearCart());
       toast("Order created");
     } catch (error) {
       console.log(error);

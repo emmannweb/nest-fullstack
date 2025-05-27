@@ -1,69 +1,57 @@
+# Small E-commerce project
 
-# Mini Projeto de E-commerce
+This project allows you to simulate orders with a button on the frontend of the application, then add one or more products to the cart (the cart is using Redux toolkit and localStorage to save products; after creating the order, the localStorage is cleared), and check the created order on the Dashboard;
 
-Esse projeto permite de simular orders com um botão no frontend do aplicativo depois adicionar um ou mais produto no carinho de simulação (o carinho esta usando localStorage para salvar IDs dos produtos; depois a  criação da ordem, o  localStorage é limpado), e conferir a a ordem criada no Dashboard;
+## 3 Entities
 
+- Product
+- Category
+- Order
 
+## Relation
 
-
-
-## 3 Entidades
-
- - Product
- - Category
- -  Order
-
-
-## Relacionamento
- - Product  & Category : Many to Many
- -  Order & Product: One to Many
-
+- Product & Category : Many to Many
+- Order & Product: One to Many
 
 ## Features (Backend)
 
-- DTOs implementados
-- Quando um produto é criado ele é  adicionado numa categoria, e essa categoria recebe o ID desse produto.
-- na atualização de produto, quando acrescentar uma ou mais categorias num produto,
-     o ID desse produto vai se cadastrado nas categorias que esse produto pertence.
-- Ao deletar um produto, o ID desse produto é  delatado em todas as categorias que ele pertence.
--  Ao deletar uma categoria, o ID dessa categoria vai ser deletado em todos os produtos que ele pertence. 
-Desta forma, a consistência vai ser mantida.
+- DTOs implemented
+- When a product is created it is added to a category, and that category receives the ID of that product.
+- When updating a product, you can add one or more categories to a product,
+  the ID of that product will be registered in all the categories mentionned.
+- When you delete a product, that product's ID is deleted from all categories it belongs to.
+- When deleting a category, the ID of that category will be deleted from all products it belongs to.
+  This way, consistency will be maintained.
 
--  Tratamento de erros e status com um middleware, estrutura de JSON
--    Quando um ordem é  criado um evento escutando para cada criação de ordem para o envio de email com Nodemailer usando o serviço de email implementado.
--  O upload de image foi implementado no backend com S3 e gera  um URL salvo com a criação de novo produto.
-
-
+- Error handling.
+- When an order is created an event is listened for each order creation to send email notification with Nodemailer using the implemented email service.
+- Image upload has been implemented in the backend with AWS S3 and generates an URL to save with new product creation.
 
 ## Features (Frontend)
 
 - Material UI.
-- Validações de formulário com Formik e Yup.
-- Datagrid para listagem de Produtos, categorias e Ordem.
-- Quando editar um produto, poderia acrescentar uma ou mais categorias.
-- Upload de imagem
-- Quando o carrinho é vazio o botão de simulação de pedido é desabilitado
+- Form validations with Formik and Yup.
+  -Datagrid for listing Products, Categories and Order.
+- When editing a product, you could add one or more categories.
+- Image upload
+- When the cart is empty the order simulation button is disabled.
 
 ## Dashboard de KPIs via Mongo DB Aggregation:
 
-- Quantidade total de pedidos.
-- Valor médio por pedido.
-- Receita total.
-- Pedidos por período (diário, semanal, mensal).
-- Quantidade de categorias.
-- Venda diário com datas e gráfico.
-
-
-
+- Total quantity of orders.
+- Average value per order.
+- Total revenue.
+- Orders by period (daily, weekly, monthly).
+- Number of categories.
+- Daily sale with dates and chart.
 
 ## Tech Stack
 
-**Frontend:** React, Material UI, Formik, Yup, Datagrid, Custom Hooks
+**Frontend:** React, Material UI, Formik, Yup, Datagrid, Custom Hooks, Redux toolkit, toast notification
 
-**Backend:** NestJs, Express, S3, Mongo DB, Nodemailer, Cors, @nestjs/config
+**Backend:** NestJs, Express, AWS S3, Mongo DB, Nodemailer, Cors, Helmet, Event, @nestjs/config
 
-**Ferramenta:** Docker
-
+**TOOLS:** Docker
 
 ## API Reference
 
@@ -73,37 +61,34 @@ Desta forma, a consistência vai ser mantida.
   GET /product
 ```
 
-
 #### Get single product
 
 ```http
   GET /product/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                  |
+| :-------- | :------- | :------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of product to fetch |
 
-
-#### Update one  product
+#### Update one product
 
 ```http
   PATCH /product/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                   |
+| :-------- | :------- | :-------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of product to update |
 
-
-#### Delete one  product
+#### Delete one product
 
 ```http
   DELETE /product/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                   |
+| :-------- | :------- | :-------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of product to delete |
 
 #### Populate Product & Category
@@ -112,45 +97,41 @@ Desta forma, a consistência vai ser mantida.
   GET /product/category/populate
 ```
 
-
 #### Get all catgeories
 
 ```http
   GET /category
 ```
 
-
 #### Get single category
 
 ```http
   GET /category/${id}
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+
+| Parameter | Type     | Description                                   |
+| :-------- | :------- | :-------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of category to fetch |
 
-
-#### Update one  category
+#### Update one category
 
 ```http
   PATCH /category/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                    |
+| :-------- | :------- | :--------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of category to update |
 
-
-#### Delete one  category
+#### Delete one category
 
 ```http
   DELETE /category/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                    |
+| :-------- | :------- | :--------------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of category to delete |
-
 
 #### Count categories
 
@@ -164,38 +145,35 @@ Desta forma, a consistência vai ser mantida.
   GET /order
 ```
 
-
 #### Get single order
 
 ```http
   GET /order/${id}
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+
+| Parameter | Type     | Description                                |
+| :-------- | :------- | :----------------------------------------- |
 | `id`      | `string` | **Required & valid**. Id of order to fetch |
 
-
-#### Update one  order
+#### Update one order
 
 ```http
   PATCH /category/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                 |
+| :-------- | :------- | :------------------------------------------ |
 | `id`      | `string` | **Required & valid**. Id of order to update |
 
-
-#### Delete one  order
+#### Delete one order
 
 ```http
   DELETE /order/${id}
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+| Parameter | Type     | Description                                 |
+| :-------- | :------- | :------------------------------------------ |
 | `id`      | `string` | **Required & valid**. Id of order to delete |
-
 
 #### Upload imagem (We only use upload service inside product)
 
@@ -203,12 +181,11 @@ Desta forma, a consistência vai ser mantida.
   POST /upload
 ```
 
-#### Sending E-mail (We only use email service not the enpoint via event) 
+#### Sending E-mail (We only use email service not the enpoint via event)
 
 ```http
   POST /email
 ```
-
 
 ## Environment Variables
 
@@ -222,17 +199,15 @@ To run this project, you will need to add the following environment variables to
 `EMAIL_USERNAME`
 `EMAIL_PASSWORD`
 
-
-
-
 ## Installation
 
 Download nest-fullstack Github folder (Should have docker install)
 
 ```bash
   cd nest-fullstack
-  RUN  docker compose up -d 
+  RUN  docker compose up -d
 ```
+
 To build and run images in a container.
 
 Restore Mongo DB Database from the ROOT folder
@@ -240,34 +215,23 @@ Restore Mongo DB Database from the ROOT folder
 ```bash
   docker cp ./db.archive mongo-db:/db.archive
 ```
+
 ```bash
   docker exec -it mongo-db mongorestore --uri mongodb://localhost:27017 --gzip --archive=db.archive
 ```
 
-
-
-    
 ## Screenshots
-
 
 ![Home Page](./images-print/home.png)
 
-
 ![Home Page](./images-print/dashboard.png)
-
 
 ![Home Page](./images-print/orders.png)
 
-
-
 ![Home Page](./images-print/product.png)
-
-
 
 ![Home Page](./images-print/update-product.png)
 
-
 ![Home Page](./images-print/product-endpoint-print.png)
-
 
 ![Home Page](./images-print/category-endpoint-print.png)
