@@ -4,8 +4,8 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { CreateOrderDto } from '../common/dto/create-order.dto';
+import { UpdateOrderDto } from '../common/dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,13 +14,13 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class OrderService {
+  private readonly logger = new Logger(OrderService.name);
+
   constructor(
     @InjectModel(Order.name) private orderModel: Model<Order>,
     @InjectModel(Product.name) private productModel: Model<Product>,
     private readonly eventEmitter: EventEmitter2,
   ) {}
-
-  private readonly logger = new Logger(OrderService.name);
 
   async create(createOrderDto: CreateOrderDto) {
     this.logger.log('creating order...');

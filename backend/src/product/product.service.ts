@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { CreateProductDto } from '../common/dto/create-product.dto';
+import { UpdateProductDto } from '../common/dto/update-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product } from './entities/product.entity';
 import { Category } from 'src/category/entities/category.entity';
